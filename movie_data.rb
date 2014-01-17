@@ -19,7 +19,8 @@ class MovieData
 		end
 	end
 
-	def popularity(movie_id) # popularity is the sum of all scores for each movie because if a movie had low scores, but a lot of people rated it, it is sill a popular movie
+	# popularity is the sum of all scores for each movie because if a movie had low scores, but a lot of people rated it, it is sill a popular movie
+	def popularity(movie_id)
 		return @popularityMovieToRatings[movie_id]
 	end
 
@@ -32,7 +33,8 @@ class MovieData
 		return list
 	end
 
-	def similarity(user1,user2) #similarity sees is user1 has any movies rated in common with user2. If there is a common movie rated, 5-(the distance away from the ratings) is added to similarity, so ratings that are closer to each other have a higher similarity
+	# similarity sees is user1 has any movies rated in common with user2. If there is a common movie rated, 5-(the distance away from the ratings) is added to similarity, so ratings that are closer to each other have a higher similarity
+	def similarity(user1,user2)
 		arr1 = @userRatings[user1]
 		arr2 = @userRatings[user2]
 		similar = 0
@@ -60,6 +62,7 @@ class MovieData
 	end
 
 end
+
 movie = MovieData.new
 movie.load_data
 popList = movie.popularity_list
