@@ -10,14 +10,8 @@ class MovieData
     def load_data
         File.foreach("u.data") do |line|
             lineArray = line.split("\t").map(&:to_i)
-            if !@popularityMovieToRatings.has_key?(lineArray[1])
-                @popularityMovieToRatings[lineArray[1]] = 0
-            end
-            @popularityMovieToRatings[lineArray[1]] += lineArray[2]
-            if !@userRatings.has_key?(lineArray[0])
-                @userRatings[lineArray[0]] = Hash.new
-            end
-            @userRatings[lineArray[0]][lineArray[1]] = lineArray[2]
+            hashCheckAndAddSum @popularityMovieToRatings, lineArray[1], lineArray[2]
+            hashCheckandAddValueWithTwoKeys @userRatings, lineArray[0], lineArray[1], lineArray[2]
         end
     end
 
@@ -61,6 +55,20 @@ class MovieData
             end
         end
         return user
+    end
+
+    def hashCheckAndAddSum hash, key, value
+        if !hash.has_key?(key)
+            hash[key] = 0
+        end
+        hash[key] += value
+    end
+
+    def hashCheckandAddValueWithTwoKeys hash, key1, key2, value
+        if !hash.has_key?(key1)
+            hash[key1] = Hash.new
+        end
+        hash[key1][key2] = value
     end
 
 end
