@@ -44,17 +44,20 @@ class MovieData
 
     def most_similar(u)
         sim = 0
-        user = 0
+        simArray = Array.new
         for x in @userRatings.keys
             if x != u
                 currentSim = similarity(u,x)
                 if currentSim > sim
                     sim = currentSim
-                    user = x
+                    simArray = Array.new
+                    simArray.push x
+                elsif currentSim == sim
+                    simArray.push x
                 end
             end
         end
-        return user
+        return simArray
     end
 
     def hashCheckAndAddSum hash, key, value
